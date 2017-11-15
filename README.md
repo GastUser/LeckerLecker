@@ -1,29 +1,19 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Beschreibung zum Projekt....
 
-### What is this repository for? ###
+### Wofür ist dieses Repo? ###
 
 * Quick summary
 * Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### Deployment zu Cloud Foundry ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Projekt >> "Clean and Build"
+* CMD öffnen
+* cf login
+    * API-Endpunkt: https://api.run.pivotal.io
+    * E-mail Adresse und Passwort
+* in das "target" Verzeichnis vom Projekt wechseln (cd ...)
+* cf push NAME-DER-APP -p lecker-platform-0.0.1-SNAPSHOT.jar 
+* fertig >> Aufruf im Browser über NAME-DER-APP.cfapps.io
