@@ -1,11 +1,18 @@
 package pizza.leckerlecker.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author marco
  */
+@Entity
 public class Lieferant {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String telefon;
