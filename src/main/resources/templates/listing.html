@@ -20,33 +20,41 @@
                             <th scope="col">Lieferant</th>
                             <th scope="col">Telefon</th>
                             <th scope="col">Webseite</th>
+                           <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">Hallo Pizza</td>
-                            <td>0341 / 665 88745</td>
-                            <td><a href="https://www.hallopizza.de/" target="_blank">www.hallopizza.de</a></td>
-                            <td><a href="https://www.hallopizza.de/leipzig-connewitz/aktion/f%C3%9Crengelszungen" target="_blank"><i class="fa fa-cutlery fa-2x" aria-hidden="true"></i></a></td>
+                      
+                        <tr th:each="lieferant : ${suchergebnisse}">
+                            <td scope="row" th:text="${lieferant.name}">Hallo Pizza</td>
+                            <td th:text="${lieferant.telefon}">0341 / 665 88745</td>
+                            <td>
+                                <a th:text="${lieferant.webseite}" th:href="${lieferant.webseite}" target="_blank">text</a>
+                            </td>
+<td scope="row" th:text="${lieferant.ort}">Ort</td>
+
+
+                            <td> 
+                                <a th:href="${lieferant.speisekarte}" target="_blank">
+                                    <i class="fa fa-cutlery fa-2x" arial-hidden="true"></i>
+                                </a>
+
+
+                            </td>    
+
+
+
+
+
                         </tr>
-                        <tr>
-                            <td scope="row">Hallo Pizza</td>
-                            <td>0341 / 665 88745</td>
-                            <td><a href="https://www.hallopizza.de/" target="_blank">www.hallopizza.de</a></td>
-                            <td><a href="https://www.hallopizza.de/leipzig-connewitz/aktion/f%C3%9Crengelszungen" target="_blank"><i class="fa fa-cutlery fa-2x" aria-hidden="true"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Hallo Pizza</td>
-                            <td>0341 / 665 88745</td>
-                            <td><a href="https://www.hallopizza.de/" target="_blank">www.hallopizza.de</a></td>
-                            <td><a href="https://www.hallopizza.de/leipzig-connewitz/aktion/f%C3%9Crengelszungen" target="_blank"><i class="fa fa-cutlery fa-2x" aria-hidden="true"></i></a></td>
-                        </tr>
+
+
                     </tbody>
                 </table>
-                
-                
-                
+
+
+
             </div>
         </main>
 

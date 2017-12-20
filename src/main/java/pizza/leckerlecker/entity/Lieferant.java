@@ -18,17 +18,39 @@ public class Lieferant {
     private String telefon;
     private String webseite;
     private String speisekarte;
+    private String ort;
+    private String plz;
 
     public Lieferant() {
     }
 
-    public Lieferant(String name, String telefon, String webseite, String speisekarte) {
+    public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz) {
         this.name = name;
         this.telefon = telefon;
         this.webseite = webseite;
         this.speisekarte = speisekarte;
+        this.ort = ort;
+        this.plz = plz;
     }
 
+    public String getOrt() {
+        return ort;
+    }
+
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+
+    public String getPlz() {
+        return plz;
+    }
+
+    public void setPlz(String plz) {
+        this.plz = plz;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

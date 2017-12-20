@@ -26,12 +26,12 @@ public class StartseiteController {
 
         List<Lieferant> alleLieferanten = lieferantRepository.findAll();
 
-        if (null == alleLieferanten || alleLieferanten.size() < 1) {
-            Lieferant neuerLieferant1 = new Lieferant("Hallo Pizza", "0800 123", "http://www.pizza.de", "http://www.pizza.de/menue");
+        Lieferant neuerLieferant1 = new Lieferant("Hallo Pizza", "0800 123", "http://www.pizza.de", "http://www.pizza.de/menue", "Leipzig", "04275");
+            Lieferant neuerLieferant2 = new Lieferant("Pizza King", "0800 654645", "http://www.pizzaking.de", "http://www.pizzaking.de/menue", "Gelsenkirchen", "45899");
             lieferantRepository.save(neuerLieferant1);
+            lieferantRepository.save(neuerLieferant2);
 
-        }
-        System.out.println("Anzahl :" + lieferantRepository.count() );
+        System.out.println("Anzahl :" + lieferantRepository.count());
         return "index";
     }
 
@@ -40,7 +40,10 @@ public class StartseiteController {
 
         System.out.println("Eingabe: " + location);
 
+        List<Lieferant> lieferanten = lieferantRepository.findByOrt(location);
         rucksack.addAttribute("sucheingabe", location);
+
+        rucksack.addAttribute("suchergebnisse", lieferanten);
 
         return "listing";
     }
