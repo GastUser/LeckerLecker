@@ -10,6 +10,6 @@ import pizza.leckerlecker.entity.Lieferant;
  * @author Chilliger
  */
 public interface  LieferantRepository  extends JpaRepository<Lieferant, Long>{
-    List<Lieferant> findByOrt(String suchfeld);
+    List<Lieferant> findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(String suchfeldOrt, String suchfeldPlz);
     
 }
