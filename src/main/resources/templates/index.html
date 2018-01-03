@@ -16,18 +16,16 @@
                 <div class="col-md-4 text-center">
                     <img src="images/logo.png" style="max-width: 100%; height: auto;" /><br/>
                     <div class="text">
-                        <form action="/listing" method="get" class="form-inline">
-                            
-                            <input type="text" class="form-control" placeholder="PLZ oder Ort" name="plz_ort" id="plz_ort" />
-                            <button type="button" class="btn btn-primary">Suche starten!</button>
-                        </form>
+
+
+                        <th:block th:include="fragments/suchform :: sucheingabe"></th:block> 
                     </div>
                 </div>
                 <div class="col-md-4"></div>
             </div>
         </main>
 
-        <th:block th:include="fragments/footer :: footer"></th:block> 
+    <th:block th:include="fragments/footer :: footer"></th:block> 
 
-    </body>
+</body>
 </html>
