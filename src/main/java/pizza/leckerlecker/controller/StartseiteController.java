@@ -24,15 +24,7 @@ public class StartseiteController {
     @GetMapping("/")
     public String startseite() {
 
-        List<Lieferant> alleLieferanten = lieferantRepository.findAll();
-
-        Lieferant neuerLieferant1 = new Lieferant("Hallo Pizza", "0800 123", "http://www.pizza.de", "http://www.pizza.de/menue", "Leipzig", "04275");
-        Lieferant neuerLieferant2 = new Lieferant("Pizza King", "0800 654645", "http://www.pizzaking.de", "http://www.pizzaking.de/menue", "Gelsenkirchen", "45899");
-        lieferantRepository.save(neuerLieferant1);
-        lieferantRepository.save(neuerLieferant2);
-
-        System.out.println("Anzahl :" + lieferantRepository.count());
-        return "index";
+     return "index";   
     }
 
     @GetMapping("/listing")

@@ -1,0 +1,4 @@
+INSERT INTO LIEFERANT (NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT) VALUES ('Pizza Alfredo1', '0341 445 6674', 'http://pizza-alfredo.de', 'http://pizza-alfredo.de/menue.pdf', '04277', 'Leipzig')
+INSERT INTO LIEFERANT (NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT) VALUES ('Hallo Pizza2', '0341 4872258', 'http://hallo-pizza.de', 'http://hallo-pizza.de/menue.pdf', '04105', 'Leipzig')
+INSERT INTO LIEFERANT (NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT) VALUES ('Lecker Pizza3', '0341 445 6674', 'http://lecker-pizza.de', 'http://lecker-pizza.de/menue.pdf', '04275', 'Leipzig')
+INSERT INTO LIEFERANT (NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT) VALUES ('Pizzamafia4', '0341 445 6674', 'http://pizzamafia.de', 'http://pizzamafia.de/menue.pdf', '76131', 'Karlsruhe')
