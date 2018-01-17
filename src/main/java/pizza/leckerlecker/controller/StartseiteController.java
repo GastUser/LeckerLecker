@@ -40,10 +40,17 @@ public class StartseiteController {
 
         System.out.println("Eingabe: " + location);
 
-        List<Lieferant> lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(location, location);
-        rucksack.addAttribute("sucheingabe", location);
+        String[] split = location.split(" ");
+        if (null != split && split.length > 0) {
 
-        rucksack.addAttribute("suchergebnisse", lieferanten);
+            String plz = split[0];
+            String ort = split[1];
+
+            List<Lieferant> lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(ort, plz);
+            rucksack.addAttribute("sucheingabe", location);
+
+            rucksack.addAttribute("suchergebnisse", lieferanten);
+        }
 
         return "listing";
     }

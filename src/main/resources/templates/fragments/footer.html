@@ -30,7 +30,7 @@
 
     <script src="../static/js/bootstrap3-typeahead.min.js" th:src="@{/js/bootstrap3-typeahead.min.js}"></script>
     <script>
-        $.get("/js/data.json", function (data) {
+        $.get("/searchdata", function (data) {
             $(".typeahead").typeahead({
                 source: data
             });
