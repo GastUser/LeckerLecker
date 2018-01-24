@@ -33,7 +33,7 @@ public class StartseiteController {
         System.out.println("Eingabe: " + location);
 
         String[] split = location.split(" ");
-        if (null != split && split.length > 0) {
+        if (null != split && split.length > 1) {
 
             String plz = split[0];
             String ort = split[1];
