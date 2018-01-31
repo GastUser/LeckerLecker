@@ -1,6 +1,8 @@
 package pizza.leckerlecker.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ public class StartseiteController {
     @GetMapping("/")
     public String startseite() {
 
-     return "index";   
+        return "index";
     }
 
     @GetMapping("/listing")
@@ -38,7 +40,13 @@ public class StartseiteController {
             String plz = split[0];
             String ort = split[1];
 
-            List<Lieferant> lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(ort, plz);
+            List<Lieferant> lieferanten = new ArrayList<>();
+            if (null == ort) {
+                lieferanten = lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(plz, plz);
+            } else {
+                lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
+            }
+
             rucksack.addAttribute("sucheingabe", location);
 
             rucksack.addAttribute("suchergebnisse", lieferanten);

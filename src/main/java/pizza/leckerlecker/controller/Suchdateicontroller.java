@@ -2,6 +2,8 @@ package pizza.leckerlecker.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
 @RestController
 public class Suchdateicontroller {
 
+    private final Logger log = LoggerFactory.getLogger(Suchdateicontroller.class);
+
     @Autowired
     LieferantRepository lieferantRepository;
 
@@ -22,8 +26,12 @@ public class Suchdateicontroller {
     List<String> searchdata() {
         List<String> ret = new ArrayList<>();
         List<Lieferant> findAll = lieferantRepository.findAll();
+
         findAll.forEach((lieferant) -> {
-            ret.add(lieferant.getPlz() + " " + lieferant.getOrt());
+            String plzOrtKombination = lieferant.getPlz() + " " + lieferant.getOrt();
+            if (!ret.contains(plzOrtKombination)) {
+                ret.add(plzOrtKombination);
+            }
         });
         return ret;
     }
