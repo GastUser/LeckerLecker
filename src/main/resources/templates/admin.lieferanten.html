@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <!--/*/ <th:block th:include="fragments/header :: head"></th:block> /*/-->
+
+    <body>
+
+        <header>
+            <!--/*/ <th:block th:include="fragments/navigation :: navi"></th:block> /*/-->
+        </header>
+
+        <!-- Begin page content -->
+        <main role="main" class="container">
+            <div class="row">
+                <h2>Administration Lieferanten</h2> </div>
+            <div class="row">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="lieferantenname">Name des Lieferanten</label>
+                        <input type="text" class="form-control" id="lieferantenname" placeholder="Name des Lieferanten">
+                    </div>
+                   <div class="form-group">
+                        <label for="telefon">Tel-Nr. des Lieferanten</label>
+                        <input type="text" class="form-control" id="telefon" placeholder="Tel-Nr. des Lieferanten">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lieferant speichern</button>
+
+
+
+
+
+                </form>
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </main>
+
+        <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+
+    </body>
+</html>
