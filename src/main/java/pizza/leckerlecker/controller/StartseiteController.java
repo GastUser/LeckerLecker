@@ -33,23 +33,27 @@ public class StartseiteController {
     public String listing(@RequestParam(value = "plz_ort", required = false) String location, Model rucksack) {
 
         System.out.println("Eingabe: " + location);
+        if (null != location && !location.equals("")) {
+            String[] split = location.split(" ");
+            if (null != split && split.length > 1) {
 
-        String[] split = location.split(" ");
-        if (null != split && split.length > 1) {
+                String plz = split[0];
+                String ort = split[1];
 
-            String plz = split[0];
-            String ort = split[1];
+                List<Lieferant> lieferanten = new ArrayList<>();
+                if (null == ort) {
+                    lieferanten = lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(plz, plz);
+                } else {
+                    lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
+                }
 
-            List<Lieferant> lieferanten = new ArrayList<>();
-            if (null == ort) {
-                lieferanten = lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(plz, plz);
-            } else {
-                lieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
+                rucksack.addAttribute("sucheingabe", location);
+
+                rucksack.addAttribute("suchergebnisse", lieferanten);
             }
+        } else {
+            rucksack.addAttribute("suchergebnisse", lieferantRepository.findAll());
 
-            rucksack.addAttribute("sucheingabe", location);
-
-            rucksack.addAttribute("suchergebnisse", lieferanten);
         }
 
         return "listing";
