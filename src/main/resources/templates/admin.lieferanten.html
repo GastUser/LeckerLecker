@@ -14,38 +14,39 @@
             <div class="row">
                 <h2>Administration Lieferanten</h2> </div>
             <div class="row">
-                <form method="POST">
+                <form th:action="@{/admin-lieferanten}" th:object="${lieferant}" method="POST">
                     <div class="form-group">
                         <label for="lieferantenname">Name des Lieferanten</label>
-                        <input type="text" class="form-control" id="lieferantenname" name="lieferantenname" placeholder="Name des Lieferanten" required>
+                        <input type="text" class="form-control"  th:field="*{name}" placeholder="Name des Lieferanten" required>
+                        <div class="p-3 mb-2 bg-danger text-white" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >Platzhalter für Fehlertext</div>
                     </div>
-                   <div class="form-group">
+                    <div class="form-group">
                         <label for="telefon">Tel-Nr. des Lieferanten</label>
-                        <input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel-Nr. des Lieferanten" required>
+                        <input type="text" class="form-control"  th:field="*{telefon}" placeholder="Tel-Nr. des Lieferanten" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="Webseite">Webseite</label>
-                        <input type="text" class="form-control" id="webseite"  name="webseite" placeholder="Webseite" required>
+                        <input type="text" class="form-control"   th:field="*{webseite}" placeholder="Webseite" required>
                     </div>
                     <div class="form-group">
                         <label for="speisekarte">Speisekarte</label>
-                        <input type="text" class="form-control" id="speisekarte" name="speisekarte" placeholder="Speisekarte" required>
+                        <input type="text" class="form-control"  th:field="*{speisekarte}" placeholder="Speisekarte" required>
                     </div>
                     <div class="form-group">
                         <label for="plz">Postleitzahl</label>
-                        <input type="text" class="form-control" id="plz" name="plz" placeholder="Postleitzahl" required>
+                        <input type="text" class="form-control"  th:field="*{plz}"   placeholder="Postleitzahl" required>
                     </div>
                     <div class="form-group">
                         <label for="ort">Ort</label>
-                        <input type="text" class="form-control" id="ort" name="ort" placeholder="Ort" required>
+                        <input type="text" class="form-control"  th:field="*{ort}" placeholder="Ort" required>
                     </div>
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
                     <button type="submit" class="btn btn-primary">Lieferant speichern</button>
 
 
