@@ -6,18 +6,22 @@ import javax.persistence.Id;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author marco
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Lieferant {
 
     @Id
     @GeneratedValue
-
-    
 
     private Long id;
     @NotNull
@@ -29,9 +33,6 @@ public class Lieferant {
     private String ort;
     private String plz;
 
-    public Lieferant() {
-    }
-
     public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz) {
         this.name = name;
         this.telefon = telefon;
@@ -40,63 +41,4 @@ public class Lieferant {
         this.ort = ort;
         this.plz = plz;
     }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public void setOrt(String ort) {
-        this.ort = ort;
-    }
-
-    public String getPlz() {
-        return plz;
-    }
-
-    public void setPlz(String plz) {
-        this.plz = plz;
-    }
-
-    
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTelefon() {
-        return telefon;
-    }
-
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
-    }
-
-    public String getWebseite() {
-        return webseite;
-    }
-
-    public void setWebseite(String webseite) {
-        this.webseite = webseite;
-    }
-
-    public String getSpeisekarte() {
-        return speisekarte;
-    }
-
-    public void setSpeisekarte(String speisekarte) {
-        this.speisekarte = speisekarte;
-    }
-
 }

@@ -45,10 +45,10 @@ public class AdminLieferant {
             String error = result.getAllErrors().get(0).toString();
             log.info("Anzahl Fehler: " + errorCount);
             log.info("Fehler: " + error);
-
+ return "admin.lieferanten";
         }
-
-        return "admin.lieferanten";
+lieferantRepository.save(lieferant);
+        return "redirect:/listing";
 
     }
 
