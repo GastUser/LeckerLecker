@@ -22,6 +22,7 @@
                             <th scope="col">Webseite</th>
                            <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
+                            <th scope="col">Aktion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +43,9 @@
 
 
                             </td>    
-
+                            <td>
+                                <a th:href="@{'/loeschen?lid=' + ${lieferant.id}}"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            </td>
 
 
 

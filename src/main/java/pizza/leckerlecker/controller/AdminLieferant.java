@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 
@@ -51,5 +52,21 @@ lieferantRepository.save(lieferant);
         return "redirect:/listing";
 
     }
+@GetMapping("/loeschen")
+public String loescheLieferant(
+@RequestParam(value="lid", required = true) Long loeschId   ) {
+log.info("Lösche Lieferant mit ID : " + loeschId);
+
+
+lieferantRepository.delete(loeschId);
+
+return "redirect:/listing";
+
+
+
+}
+
+
+
 
 }
