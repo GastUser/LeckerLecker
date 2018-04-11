@@ -20,20 +20,20 @@
                             <th scope="col">Lieferant</th>
                             <th scope="col">Telefon</th>
                             <th scope="col">Webseite</th>
-                           <th scope="col">Ort</th>
+                            <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
                             <th scope="col">Aktion</th>
                         </tr>
                     </thead>
                     <tbody>
-                      
-                        <tr th:each="lieferant : ${suchergebnisse}">
+
+                        <tr th:if="${suchergebnisse}" th:each="lieferant : ${suchergebnisse}">
                             <td scope="row" th:text="${lieferant.name}">Hallo Pizza</td>
                             <td th:text="${lieferant.telefon}">0341 / 665 88745</td>
                             <td>
                                 <a th:text="${lieferant.webseite}" th:href="${lieferant.webseite}" target="_blank">text</a>
                             </td>
-<td scope="row" th:text="${lieferant.ort}">Ort</td>
+                            <td scope="row" th:text="${lieferant.ort}">Ort</td>
 
 
                             <td> 
@@ -51,7 +51,12 @@
 
 
                         </tr>
-
+                       
+                        
+                        <tr th:if="${suchergebnisse.empty}">
+                            <td colspan="6">Keine Lieferanten gefunden!</td>
+                        </tr>
+              
 
                     </tbody>
                 </table>

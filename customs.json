@@ -1,0 +1,17 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:if": {
+            "context": "tr"
+        },
+        "th:text": {
+            "context": "td"
+        },
+        "th:href": {
+            "context": "a"
+        },
+        "arial-hidden": {
+            "context": "i"
+        }
+    }
+}
