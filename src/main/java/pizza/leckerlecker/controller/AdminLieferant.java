@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 
@@ -54,11 +55,16 @@ lieferantRepository.save(lieferant);
     }
 @GetMapping("/loeschen")
 public String loescheLieferant(
-@RequestParam(value="lid", required = true) Long loeschId   ) {
+@RequestParam(value="lid", required = true) Long loeschId,
+        RedirectAttributes redirectAttributes) {
 log.info("Lösche Lieferant mit ID : " + loeschId);
 
-
+Lieferant lieferantToDelete = lieferantRepository.findOne(loeschId);
+String nachricht = "Löschen von " + lieferantToDelete.getName() + " erfolgreich!";        
 lieferantRepository.delete(loeschId);
+
+
+redirectAttributes.addFlashAttribute("meldung", nachricht);
 
 return "redirect:/listing";
 
