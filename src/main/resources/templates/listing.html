@@ -11,6 +11,12 @@
 
         <!-- Begin page content -->
         <main role="main" class="container">
+
+            <div th:if="${meldung}" th:text="${meldung}" class="alert alert-success" role="alert">
+                This is a success alert—check it out!
+            </div>
+
+
             <div class="row">
                 <h2>Liste der Suchergebnisse für Eingabe: <span th:text="${sucheingabe}"></span></h2>
 
@@ -22,7 +28,8 @@
                             <th scope="col">Webseite</th>
                             <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
-                            <th scope="col">Aktion</th>
+
+                            <th sec:authorize="hasRole('ADMIN')" scope="col">Aktion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,20 +50,23 @@
 
 
                             </td>    
-                            <td>
-                                <a th:href="@{'/loeschen?lid=' + ${lieferant.id}}"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            <td sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{'/loeschen?lid=' + ${lieferant.id}}"
+                                   th:onclick="'return confirm_click(\'' + ${lieferant.name} + '\'); '" >
+
+                                    <i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                             </td>
 
 
 
 
                         </tr>
-                       
-                        
+
+
                         <tr th:if="${suchergebnisse.empty}">
                             <td colspan="6">Keine Lieferanten gefunden!</td>
                         </tr>
-              
+
 
                     </tbody>
                 </table>
@@ -67,6 +77,12 @@
         </main>
 
         <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+        <script type="text/javascript">
+            function confirm_click(lieferant) {
+                return confirm("Lieferant" + lieferant + " wirklich löschen?");
+
+            }
+        </script>
 
     </body>
 </html>

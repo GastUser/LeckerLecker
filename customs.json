@@ -7,6 +7,9 @@
         "th:text": {
             "context": "td"
         },
+        "sec:authorize": {
+            "context": "th"
+        },
         "th:href": {
             "context": "a"
         },
