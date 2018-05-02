@@ -1,9 +1,13 @@
 package pizza.leckerlecker.controller;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +26,10 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
 public class AdminLieferant {
 
     private final Logger log = LoggerFactory.getLogger(AdminLieferant.class);
+   
+    @Autowired
+    private JavaMailSender sender;
+    
     @Autowired
     LieferantRepository lieferantRepository;
 
@@ -50,7 +58,15 @@ public class AdminLieferant {
  return "admin.lieferanten";
         }
 lieferantRepository.save(lieferant);
-        return "redirect:/listing";
+//Email senden
+try {
+sendEmail(lieferant);
+}catch(Exception ex){
+    return "Error in sending email:" +ex;
+    
+}
+
+return "redirect:/listing";
 
     }
 @GetMapping("/loeschen")
@@ -72,7 +88,16 @@ return "redirect:/listing";
 
 }
 
+private void sendEmail(Lieferant lieferant) throws MessagingException {
+MimeMessage message = sender.createMimeMessage();
+MimeMessageHelper helper = new MimeMessageHelper(message);
+helper.setTo("empfaenger@me.com");
+helper.setFrom("absender@me.com");
+helper.setText("Neuer Lieferant:" + lieferant.getName());
+helper.setSubject("Neuer Kunde");
+sender.send(message);
 
+}
 
 
 }
