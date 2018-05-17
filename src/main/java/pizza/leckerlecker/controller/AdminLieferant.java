@@ -26,10 +26,10 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
 public class AdminLieferant {
 
     private final Logger log = LoggerFactory.getLogger(AdminLieferant.class);
-   
+
     @Autowired
     private JavaMailSender sender;
-    
+
     @Autowired
     LieferantRepository lieferantRepository;
 
@@ -45,59 +45,79 @@ public class AdminLieferant {
     }
 
     @PostMapping("/admin-lieferanten")
-    public String speichereLieferant(@Valid Lieferant lieferant, BindingResult result,Model model) {
-        log.info("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
+    public String speichereLieferant(
+            @Valid 
+            Lieferant lieferant,
+            BindingResult result,
+            Model model,
+        RedirectAttributes redirectAttributes){
+       
         
-        if(result.hasErrors()) {
+        
+        
+        log.info("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
+
+        
+        if (result.hasErrors()) {
             log.info("Fehler vorhanden");
 
             int errorCount = result.getErrorCount();
             String error = result.getAllErrors().get(0).toString();
             log.info("Anzahl Fehler: " + errorCount);
             log.info("Fehler: " + error);
- return "admin.lieferanten";
+            return "admin.lieferanten";
         }
-lieferantRepository.save(lieferant);
+        Lieferant l = lieferantRepository.save(lieferant);
 //Email senden
-try {
-sendEmail(lieferant);
-}catch(Exception ex){
-    return "Error in sending email:" +ex;
-    
-}
+        try {
+            sendEmail(lieferant);
+        } catch (Exception ex) {
+            return "Error in sending email:" + ex;
 
-return "redirect:/listing";
+        }
+
+        String nachricht = "Speichern von : " + l.getName() + " erfolgreich!";
+        redirectAttributes.addFlashAttribute("meldung", nachricht);
+        return "redirect:/listing";
 
     }
-@GetMapping("/loeschen")
-public String loescheLieferant(
-@RequestParam(value="lid", required = true) Long loeschId,
-        RedirectAttributes redirectAttributes) {
-log.info("Lösche Lieferant mit ID : " + loeschId);
 
-Lieferant lieferantToDelete = lieferantRepository.findOne(loeschId);
-String nachricht = "Löschen von " + lieferantToDelete.getName() + " erfolgreich!";        
-lieferantRepository.delete(loeschId);
+    @GetMapping("/bearbeiten")
+    public String bearbeiteLieferant(
+            @RequestParam(value = "bid", required = true) Long bearbeiteId,
+            Model rucksack
+    ) {
+        Lieferant bearbeiteLieferant = lieferantRepository.findOne(bearbeiteId);
+        rucksack.addAttribute("lieferant", bearbeiteLieferant);
+        return "admin.lieferanten";
 
+    }
 
-redirectAttributes.addFlashAttribute("meldung", nachricht);
+    @GetMapping("/loeschen")
+    public String loescheLieferant(
+            @RequestParam(value = "lid", required = true) Long loeschId,
+            RedirectAttributes redirectAttributes) {
+        log.info("Lösche Lieferant mit ID : " + loeschId);
 
-return "redirect:/listing";
+        Lieferant lieferantToDelete = lieferantRepository.findOne(loeschId);
+        String nachricht = "Löschen von " + lieferantToDelete.getName() + " erfolgreich!";
+        lieferantRepository.delete(loeschId);
 
+        redirectAttributes.addFlashAttribute("meldung", nachricht);
 
+        return "redirect:/listing";
 
-}
+    }
 
-private void sendEmail(Lieferant lieferant) throws MessagingException {
-MimeMessage message = sender.createMimeMessage();
-MimeMessageHelper helper = new MimeMessageHelper(message);
-helper.setTo("empfaenger@me.com");
-helper.setFrom("absender@me.com");
-helper.setText("Neuer Lieferant:" + lieferant.getName());
-helper.setSubject("Neuer Kunde");
-sender.send(message);
+    private void sendEmail(Lieferant lieferant) throws MessagingException {
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setTo("empfaenger@me.com");
+        helper.setFrom("absender@me.com");
+        helper.setText("Neuer Lieferant:" + lieferant.getName());
+        helper.setSubject("Neuer Kunde");
+        sender.send(message);
 
-}
-
+    }
 
 }
