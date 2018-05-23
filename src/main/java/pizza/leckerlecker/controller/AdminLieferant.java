@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
-
+import org.apache.commons.validator.routines.UrlValidator;
 /**
  *
  * @author marco
@@ -57,6 +57,14 @@ public class AdminLieferant {
         
         log.info("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
 
+        UrlValidator uv = new UrlValidator();
+        log.info("Webseiten-URL korrekt: " + uv.isValid(lieferant.getWebseite()));
+        
+       if( !uv.isValid(lieferant.getWebseite()) ) {
+       result.rejectValue("webseite","", "Prüfen sie ihre Url - Ungültig!");
+       
+       } 
+        
         
         if (result.hasErrors()) {
             log.info("Fehler vorhanden");

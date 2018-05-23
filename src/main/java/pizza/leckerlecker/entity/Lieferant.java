@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Lieferant {
     private String name;
     private String telefon;
     private String webseite;
+    @URL
     private String speisekarte;
     private String ort;
     private String plz;
