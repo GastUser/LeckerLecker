@@ -7,6 +7,7 @@
 
         <header>
             <!--/*/ <th:block th:include="fragments/navigation :: navi"></th:block> /*/-->
+            <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
         </header>
 
         <!-- Begin page content -->
@@ -20,7 +21,7 @@
             <div class="row">
                 <h2>Liste der Suchergebnisse für Eingabe: <span th:text="${sucheingabe}"></span></h2>
 
-                <table class="table table-striped table-dark">
+                <table id="lieferanten" class="cell-border">
                     <thead>
                         <tr>
                             <th scope="col">Lieferant</th>
@@ -83,10 +84,15 @@
         </main>
 
         <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
-        <script type="text/javascript">
-            function confirm_click(lieferant) {
-                return confirm("Lieferant" + lieferant + " wirklich löschen?");
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#lieferanten').DataTable();
+
+            });
+            function confirm_click(lieferant){
+                return confirm("lieferant" + lieferant + "wirklich löschen?");
             }
         </script>
 
