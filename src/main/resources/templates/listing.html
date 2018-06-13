@@ -19,9 +19,9 @@
 
 
             <div class="row">
-                <h2>Liste der Suchergebnisse für Eingabe: <span th:text="${sucheingabe}"></span></h2>
+                <h2 th:if="${sucheingabe}">Liste der Suchergebnisse für Eingabe: <span th:text="${sucheingabe}"></span></h2>
 
-                <table id="lieferanten" class="cell-border">
+                <table id="lieferanten" class="cell-border stripe hover order-column">
                     <thead>
                         <tr>
                             <th scope="col">Lieferant</th>
