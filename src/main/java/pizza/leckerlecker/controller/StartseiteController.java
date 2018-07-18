@@ -23,7 +23,7 @@ public class StartseiteController {
     @GetMapping("/")
     public String startseite() {
 
-        return "index_neu";
+        return "index_new";
     }
 
     @GetMapping("/listing")
