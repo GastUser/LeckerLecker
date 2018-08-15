@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.springframework.beans.factory.annotation.Value;
 /**
  *
  * @author marco
@@ -33,14 +34,17 @@ public class AdminLieferant {
     @Autowired
     LieferantRepository lieferantRepository;
 
-    @GetMapping("/admin-lieferanten")
+   @Value("${app.kategorien}")
+    private String[] kategorien;
+    
+   @GetMapping("/admin-lieferanten")
     public String AdminLieferant(Model model) {
         Lieferant lieferant = new Lieferant();
         lieferant.setPlz("04275");
         lieferant.setOrt("lieferant");
 
         model.addAttribute("lieferant", lieferant);
-
+model.addAttribute("kategorien", kategorien);
         return "admin.lieferanten";
     }
 
