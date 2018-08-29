@@ -1,5 +1,8 @@
 package pizza.leckerlecker.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
@@ -44,7 +47,8 @@ public class AdminLieferant {
         lieferant.setOrt("lieferant");
 
         model.addAttribute("lieferant", lieferant);
-model.addAttribute("kategorien", kategorien);
+  model.addAttribute("selectedKat", this.gewaehlteKategorien);
+        model.addAttribute("kategorien",Arrays.asList(kategorien));
         return "admin.lieferanten";
     }
 
@@ -63,6 +67,8 @@ model.addAttribute("kategorien", kategorien);
 
         UrlValidator uv = new UrlValidator();
         log.info("Webseiten-URL korrekt: " + uv.isValid(lieferant.getWebseite()));
+        
+        model.addAttribute("selectedKat", this.getSelectedKatAsList(lieferant.getKategorie()));
         
        if( !uv.isValid(lieferant.getWebseite()) ) {
        result.rejectValue("webseite","", "Prüfen sie ihre Url - Ungültig!");
@@ -101,6 +107,7 @@ model.addAttribute("kategorien", kategorien);
     ) {
         Lieferant bearbeiteLieferant = lieferantRepository.findOne(bearbeiteId);
         rucksack.addAttribute("lieferant", bearbeiteLieferant);
+       rucksack.addAttribute("kategorien", kategorien);
         return "admin.lieferanten";
 
     }
@@ -131,5 +138,20 @@ model.addAttribute("kategorien", kategorien);
         sender.send(message);
 
     }
-
+/**
+     * Helper String zu Liste
+     * @param in
+     * @return 
+     */
+    private List<String> getSelectedKatAsList(String kommagetrennteKategorien) {
+        List<String> ret = new ArrayList<>();
+       
+        if(null!=kommagetrennteKategorien) {
+            List<String> asList = Arrays.asList(kommagetrennteKategorien.split("\\s*,\\s*"));
+            if(null != asList && asList.size()>0) {
+                ret = asList;
+            }
+        }
+        return ret;
+    }
 }
