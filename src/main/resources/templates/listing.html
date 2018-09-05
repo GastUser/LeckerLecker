@@ -29,7 +29,7 @@
                             <th scope="col">Webseite</th>
                             <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
-
+                            <th scope="col">Kategorie</th>
                             <th sec:authorize="hasRole('ADMIN')" scope="col">Aktion</th>
                         </tr>
                     </thead>
@@ -38,6 +38,7 @@
                         <tr th:if="${suchergebnisse}" th:each="lieferant : ${suchergebnisse}">
                             <td scope="row" th:text="${lieferant.name}">Hallo Pizza</td>
                             <td th:text="${lieferant.telefon}">0341 / 665 88745</td>
+                            <td th:text="${lieferant.kategorie}">Kategorie</td>
                             <td>
                                 <a th:text="${lieferant.webseite}" th:href="${lieferant.webseite}" target="_blank">text</a>
                             </td>
