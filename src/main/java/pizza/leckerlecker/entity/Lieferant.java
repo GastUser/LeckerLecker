@@ -1,15 +1,15 @@
 package pizza.leckerlecker.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Lieferant {
     private String speisekarte;
     private String ort;
     private String plz;
-private String kategorie;
+private String kategorie = "";
     public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz, String kategorie) {
         this.name = name;
         this.telefon = telefon;

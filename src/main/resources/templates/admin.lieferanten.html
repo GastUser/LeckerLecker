@@ -25,13 +25,13 @@
                     </div>
                     <div class="form-group">
                         <label for="kategorie">Kategorie</label>
-                       <select class="form-control" th:field="*{kategorie}" multiple="multiple" size="3">
-                            <option 
-                                th:each="kat : ${kategorien}" 
-                                th:text="${kat}" 
-                                th:value="${kat}"
-                                th:selected="${#lists.contains(selectedKat,kat)}"></option>
-                        </select>
+                       <select class="form-control" id="kategorie" name="kategorie" multiple="multiple" size="3">
+                            <option
+                                    th:each="kat : ${kategorien}"
+                                    th:text="${kat}"
+                                    th:value="${kat}"
+                                    th:selected="${#lists.contains(selectedKat,kat)}"></option>
+                         </select>
                     </div>
                     
                     

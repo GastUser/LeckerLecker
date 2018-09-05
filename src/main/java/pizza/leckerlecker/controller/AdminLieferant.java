@@ -1,14 +1,10 @@
 package pizza.leckerlecker.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.validation.Valid;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -20,8 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
-import org.apache.commons.validator.routines.UrlValidator;
-import org.springframework.beans.factory.annotation.Value;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author marco
@@ -37,45 +39,44 @@ public class AdminLieferant {
     @Autowired
     LieferantRepository lieferantRepository;
 
-   @Value("${app.kategorien}")
+    @Value("${app.kategorien}")
     private String[] kategorien;
-    
-   @GetMapping("/admin-lieferanten")
+
+    private List<String> gewaehlteKategorien = new ArrayList<>();
+
+    @GetMapping("/admin-lieferanten")
     public String AdminLieferant(Model model) {
         Lieferant lieferant = new Lieferant();
         lieferant.setPlz("04275");
         lieferant.setOrt("lieferant");
 
         model.addAttribute("lieferant", lieferant);
-  model.addAttribute("selectedKat", this.gewaehlteKategorien);
-        model.addAttribute("kategorien",Arrays.asList(kategorien));
+        model.addAttribute("selectedKat", this.gewaehlteKategorien);
+        model.addAttribute("kategorien", Arrays.asList(kategorien));
+        
         return "admin.lieferanten";
     }
 
     @PostMapping("/admin-lieferanten")
     public String speichereLieferant(
-            @Valid 
-            Lieferant lieferant,
+            @Valid Lieferant lieferant,
             BindingResult result,
             Model model,
-        RedirectAttributes redirectAttributes){
-       
-        
-        
-        
+            RedirectAttributes redirectAttributes) {
+
         log.info("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
 
         UrlValidator uv = new UrlValidator();
         log.info("Webseiten-URL korrekt: " + uv.isValid(lieferant.getWebseite()));
-        
+
+        model.addAttribute("kategorien", Arrays.asList(this.kategorien));
         model.addAttribute("selectedKat", this.getSelectedKatAsList(lieferant.getKategorie()));
-        
-       if( !uv.isValid(lieferant.getWebseite()) ) {
-       result.rejectValue("webseite","", "Prüfen sie ihre Url - Ungültig!");
-       
-       } 
-        
-        
+
+        if (!uv.isValid(lieferant.getWebseite())) {
+            result.rejectValue("webseite", "", "Prüfen sie ihre Url - Ungültig!");
+
+        }
+
         if (result.hasErrors()) {
             log.info("Fehler vorhanden");
 
@@ -106,8 +107,14 @@ public class AdminLieferant {
             Model rucksack
     ) {
         Lieferant bearbeiteLieferant = lieferantRepository.findOne(bearbeiteId);
+
+        rucksack.addAttribute("selectedKat", this.getSelectedKatAsList(bearbeiteLieferant.getKategorie()));
         rucksack.addAttribute("lieferant", bearbeiteLieferant);
-       rucksack.addAttribute("kategorien", kategorien);
+        rucksack.addAttribute("kategorien", Arrays.asList(this.kategorien));
+
+
+        log.info(rucksack.toString());
+
         return "admin.lieferanten";
 
     }
@@ -138,17 +145,19 @@ public class AdminLieferant {
         sender.send(message);
 
     }
-/**
+
+    /**
      * Helper String zu Liste
-     * @param in
-     * @return 
+     *
+     * @param kommagetrennteKategorien
+     * @return
      */
     private List<String> getSelectedKatAsList(String kommagetrennteKategorien) {
         List<String> ret = new ArrayList<>();
-       
-        if(null!=kommagetrennteKategorien) {
+
+        if (null != kommagetrennteKategorien) {
             List<String> asList = Arrays.asList(kommagetrennteKategorien.split("\\s*,\\s*"));
-            if(null != asList && asList.size()>0) {
+            if (null != asList && asList.size() > 0) {
                 ret = asList;
             }
         }

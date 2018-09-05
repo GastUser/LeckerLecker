@@ -1,6 +1,7 @@
 package pizza.leckerlecker.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,10 @@ public class StartseiteController {
     }
 
     @GetMapping("/listing")
-    public String listing(@RequestParam(value = "plz_ort", required = false) String location, Model rucksack) {
+    public String listing(
+            @RequestParam(value = "plz_ort", required = false) String location, 
+            @RequestParam(value = "kategorie", required = false) String kategorie,
+            Model rucksack) {
 
         List<Lieferant> listeLieferanten = new ArrayList<>();
         
@@ -48,6 +52,25 @@ public class StartseiteController {
                     listeLieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
                 }
 
+                if(null!=kategorie) {
+                    List<Lieferant> temp = new ArrayList<>();
+                    
+                    List<String> listeDerKategorien = Arrays.asList(kategorie.split("\\s*,\\s*"));
+                    
+                    for (Lieferant lieferant : listeLieferanten) {
+                        for (String kat : listeDerKategorien) {
+                            if(lieferant.getKategorie().contains(kat)) {
+                                temp.add(lieferant);
+                                break;
+                            }
+                        }
+                        
+                    }
+                    listeLieferanten = temp;
+                    
+                }
+                
+                
                 rucksack.addAttribute("sucheingabe", location);
 
                
