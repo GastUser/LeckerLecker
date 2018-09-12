@@ -24,7 +24,7 @@ public class StartseiteController {
     @GetMapping("/")
     public String startseite() {
 
-        return "index_new";
+        return "startseite";
     }
 
     @GetMapping("/listing")
