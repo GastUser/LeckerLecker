@@ -64,41 +64,35 @@ public class AdminLieferantController {
             Model model,
             RedirectAttributes redirectAttributes) {
 
-        log.info("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
-
+        log.debug("Lieferanten speichern: " + lieferant.getName() + "Phone :" + lieferant.getTelefon());
         UrlValidator uv = new UrlValidator();
-        log.info("Webseiten-URL korrekt: " + uv.isValid(lieferant.getWebseite()));
+        log.debug("Webseiten-URL korrekt: " + uv.isValid(lieferant.getWebseite()));
 
         model.addAttribute("kategorien", Arrays.asList(this.kategorien));
         model.addAttribute("selectedKat", this.getSelectedKatAsList(lieferant.getKategorie()));
 
         if (!uv.isValid(lieferant.getWebseite())) {
             result.rejectValue("webseite", "", "Prüfen sie ihre Url - Ungültig!");
-
         }
 
         if (result.hasErrors()) {
-            log.info("Fehler vorhanden");
-
             int errorCount = result.getErrorCount();
             String error = result.getAllErrors().get(0).toString();
-            log.info("Anzahl Fehler: " + errorCount);
-            log.info("Fehler: " + error);
+            log.debug("Anzahl Fehler: " + errorCount);
+            log.debug("Fehler: " + error);
             return "admin.lieferanten";
         }
         Lieferant l = lieferantRepository.save(lieferant);
-//Email senden
+        //Email senden
         try {
             sendEmail(lieferant);
         } catch (Exception ex) {
             return "Error in sending email:" + ex;
-
         }
 
         String nachricht = "Speichern von : " + l.getName() + " erfolgreich!";
         redirectAttributes.addFlashAttribute("meldung", nachricht);
         return "redirect:/listing";
-
     }
 
     @GetMapping("/bearbeiten")
@@ -112,8 +106,6 @@ public class AdminLieferantController {
         model.addAttribute("lieferant", bearbeiteLieferant);
         model.addAttribute("kategorien", Arrays.asList(this.kategorien));
 
-        log.info(model.toString());
-
         return "admin.lieferanten";
 
     }
@@ -122,12 +114,11 @@ public class AdminLieferantController {
     public String loescheLieferant(
             @RequestParam(value = "lid", required = true) Long loeschId,
             RedirectAttributes redirectAttributes) {
-        log.info("Lösche Lieferant mit ID : " + loeschId);
+        log.debug("Lösche Lieferant mit ID : " + loeschId);
 
         Lieferant lieferantToDelete = lieferantRepository.findOne(loeschId);
         String nachricht = "Löschen von " + lieferantToDelete.getName() + " erfolgreich!";
         lieferantRepository.delete(loeschId);
-
         redirectAttributes.addFlashAttribute("meldung", nachricht);
 
         return "redirect:/listing";
@@ -142,7 +133,6 @@ public class AdminLieferantController {
         helper.setText("Neuer Lieferant:" + lieferant.getName());
         helper.setSubject("Neuer Kunde");
         sender.send(message);
-
     }
 
     /**
