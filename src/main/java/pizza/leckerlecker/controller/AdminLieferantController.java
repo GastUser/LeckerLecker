@@ -53,7 +53,7 @@ public class AdminLieferantController {
         model.addAttribute("lieferant", lieferant);
         model.addAttribute("selectedKat", this.gewaehlteKategorien);
         model.addAttribute("kategorien", Arrays.asList(kategorien));
-        
+
         return "admin.lieferanten";
     }
 
@@ -104,16 +104,15 @@ public class AdminLieferantController {
     @GetMapping("/bearbeiten")
     public String bearbeiteLieferant(
             @RequestParam(value = "bid", required = true) Long bearbeiteId,
-            Model rucksack
+            Model model
     ) {
         Lieferant bearbeiteLieferant = lieferantRepository.findOne(bearbeiteId);
 
-        rucksack.addAttribute("selectedKat", this.getSelectedKatAsList(bearbeiteLieferant.getKategorie()));
-        rucksack.addAttribute("lieferant", bearbeiteLieferant);
-        rucksack.addAttribute("kategorien", Arrays.asList(this.kategorien));
+        model.addAttribute("selectedKat", this.getSelectedKatAsList(bearbeiteLieferant.getKategorie()));
+        model.addAttribute("lieferant", bearbeiteLieferant);
+        model.addAttribute("kategorien", Arrays.asList(this.kategorien));
 
-
-        log.info(rucksack.toString());
+        log.info(model.toString());
 
         return "admin.lieferanten";
 
