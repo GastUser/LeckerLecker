@@ -25,11 +25,23 @@ public class StartseiteController {
     @Autowired
     LieferantRepository lieferantRepository;
 
+    /**
+     * Das ist der Endpunkt für die <strong>Startseite</strong>
+     * 
+     * @return Weiterleitung zum Startseiten HTML Template
+     */
     @GetMapping("/")
     public String startseite() {
         return "startseite";
     }
 
+    /**
+     * 
+     * @param location
+     * @param kategorie
+     * @param model
+     * @return 
+     */
     @GetMapping("/listing")
     public String listing(
             @RequestParam(value = "plz_ort", required = false) String location,
