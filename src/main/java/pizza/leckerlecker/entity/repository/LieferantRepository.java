@@ -1,4 +1,3 @@
-
 package pizza.leckerlecker.entity.repository;
 
 import java.util.List;
@@ -9,10 +8,7 @@ import pizza.leckerlecker.entity.Lieferant;
  *
  * @author Chilliger
  */
-public interface  LieferantRepository  extends JpaRepository<Lieferant, Long>{
+public interface LieferantRepository extends JpaRepository<Lieferant, Long> {
     List<Lieferant> findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(String suchfeldOrt, String suchfeldPlz);
-     List<Lieferant> findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(String suchfeldOrt, String suchfeldPlz);
-    
-
-
+    List<Lieferant> findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(String suchfeldOrt, String suchfeldPlz);
 }

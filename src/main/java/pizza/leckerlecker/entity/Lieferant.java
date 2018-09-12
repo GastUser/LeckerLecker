@@ -34,7 +34,8 @@ public class Lieferant {
     private String speisekarte;
     private String ort;
     private String plz;
-private String kategorie = "";
+    private String kategorie = "";
+
     public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz, String kategorie) {
         this.name = name;
         this.telefon = telefon;
@@ -42,6 +43,6 @@ private String kategorie = "";
         this.speisekarte = speisekarte;
         this.ort = ort;
         this.plz = plz;
-   this.kategorie = kategorie;
+        this.kategorie = kategorie;
     }
 }

@@ -3,6 +3,8 @@ package pizza.leckerlecker.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,26 +20,25 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
 @Controller
 public class StartseiteController {
 
+    private final Logger log = LoggerFactory.getLogger(StartseiteController.class);
+
     @Autowired
     LieferantRepository lieferantRepository;
 
     @GetMapping("/")
     public String startseite() {
-
         return "startseite";
     }
 
     @GetMapping("/listing")
     public String listing(
-            @RequestParam(value = "plz_ort", required = false) String location, 
+            @RequestParam(value = "plz_ort", required = false) String location,
             @RequestParam(value = "kategorie", required = false) String kategorie,
-            Model rucksack) {
+            Model model) {
 
         List<Lieferant> listeLieferanten = new ArrayList<>();
-        
-        
-        
-        System.out.println("Eingabe: " + location);
+
+        log.debug("Eingabe: " + location);
         if (null != location && !location.equals("")) {
             String[] split = location.split(" ");
             if (null != split && split.length > 1) {
@@ -52,35 +53,27 @@ public class StartseiteController {
                     listeLieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
                 }
 
-                if(null!=kategorie) {
+                if (null != kategorie) {
                     List<Lieferant> temp = new ArrayList<>();
-                    
                     List<String> listeDerKategorien = Arrays.asList(kategorie.split("\\s*,\\s*"));
-                    
+
                     for (Lieferant lieferant : listeLieferanten) {
                         for (String kat : listeDerKategorien) {
-                            if(lieferant.getKategorie().contains(kat)) {
+                            if (lieferant.getKategorie().contains(kat)) {
                                 temp.add(lieferant);
                                 break;
                             }
                         }
-                        
                     }
                     listeLieferanten = temp;
-                    
                 }
-                
-                
-                rucksack.addAttribute("sucheingabe", location);
 
-               
+                model.addAttribute("sucheingabe", location);
             }
         } else {
-          listeLieferanten = lieferantRepository.findAll();
-
+            listeLieferanten = lieferantRepository.findAll();
         }
-rucksack.addAttribute("suchergebnisse", listeLieferanten);
+        model.addAttribute("suchergebnisse", listeLieferanten);
         return "listing";
     }
-
 }
