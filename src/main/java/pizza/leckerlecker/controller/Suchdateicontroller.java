@@ -14,7 +14,7 @@ import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 
 @RestController
-public class Suchdateicontroller {
+public class SuchdateiController {
 
     private final Logger log = LoggerFactory.getLogger(Suchdateicontroller.class);
 

@@ -16,7 +16,7 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
 @RestController
 public class SuchdateiController {
 
-    private final Logger log = LoggerFactory.getLogger(SuchdateiController.class);
+    private final Logger log = LoggerFactory.getLogger(Suchdateicontroller.class);
 
     @Autowired
     LieferantRepository lieferantRepository;
@@ -24,6 +24,7 @@ public class SuchdateiController {
     @RequestMapping(value = "/searchdata", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<String> searchdata() {
+        log.debug("Methode sesrchdata" );
         List<String> ret = new ArrayList<>();
         List<Lieferant> findAll = lieferantRepository.findAll();
 
