@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lecker Lecker</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.2.css" />
+    </head>
+    <body>
+        <main>
+            <article>
+                <h2>Meine Stadt</h2>
+
+                <section>
+                    <table>
+                        <thead>
+                            <tr>
+
+                                <th>Lieferant</th>
+                                <th>Kategorie</th>
+                                <th>Webseite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${lieferanten}" th:each="lieferant : ${lieferanten}">
+                                <td th:text="${lieferant.name}"></td>
+                                <td th:text="${lieferant.kategorie}"></td>
+                                <td th:text="${lieferant.webseite}" ></td>
+
+
+
+                            </tr>
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </section>
+            </article>
+        </main>
+    </body>
+</html>
