@@ -24,7 +24,10 @@
                             <tr th:if="${lieferanten}" th:each="lieferant : ${lieferanten}">
                                 <td th:text="${lieferant.name}"></td>
                                 <td th:text="${lieferant.kategorie}"></td>
-                                <td th:text="${lieferant.webseite}" ></td>
+                                <td>
+                                    <a th:href="${lieferant.webseite}" th:text="${lieferant.webseite}" target="_blank">Zur Webseite</a>
+                                    
+                                </td>
 
 
 
@@ -35,6 +38,21 @@
 
                     </table>
 
+
+                </section>
+            </article>
+        <article>
+                <section>
+
+                    <iframe 
+                        marginheight='0' 
+                        marginwidth='0' 
+                        scrolling='no' 
+                        width='300' 
+                        height='310' 
+                        name='FC2' 
+                        style='border:1px solid;border-color:transparent;' 
+                        src='https://api.wetteronline.de/wetterwidget?gid=10471&modeid=FC2&seourl=leipzig&locationname=Hawaii'></iframe>
 
                 </section>
             </article>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pizza.leckerlecker.entity.Lieferant;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 
@@ -28,10 +29,18 @@ public class IframeController {
      * @return Weiterleitung zum iframe HTML Template
      */
     @GetMapping("/iframe")
-    public String iframe(Model model) {
-        List<Lieferant> alleLieferanten = lieferantRepository.findAll();
+    public String iframe(
+            @RequestParam(value="ort", required = false, defaultValue ="")String ort,
+         Model model) {
+       
+        
+        
+        
+        List<Lieferant> alleLieferanten = lieferantRepository.findByOrtIgnoreCaseContaining(ort);
         model.addAttribute("lieferanten", alleLieferanten);
 
         return "iframe";
+   
     }
+
 }
