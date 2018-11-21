@@ -21,7 +21,10 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/admin-lieferanten").authenticated()
                 .anyRequest().permitAll()
                 .and()
