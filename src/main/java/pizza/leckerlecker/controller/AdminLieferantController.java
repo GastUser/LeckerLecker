@@ -1,5 +1,6 @@
 package pizza.leckerlecker.controller;
 
+import java.io.IOException;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -60,6 +63,7 @@ public class AdminLieferantController {
     @PostMapping("/admin-lieferanten")
     public String speichereLieferant(
             @Valid Lieferant lieferant,
+            @RequestParam("logo") MultipartFile logoUpload,
             BindingResult result,
             Model model,
             RedirectAttributes redirectAttributes) {
@@ -74,7 +78,19 @@ public class AdminLieferantController {
         if (!uv.isValid(lieferant.getWebseite())) {
             result.rejectValue("webseite", "", "Prüfen sie ihre Url - Ungültig!");
         }
-
+        
+        //Logo speichern
+        if(!logoUpload.isEmpty()) { 
+            log.info("Content-Type: " + logoUpload.getContentType());
+            try {
+                //String storeFile = fileService.storeFile(logoUpload);
+                lieferant.setLogoPath(logoUpload.getName());
+                lieferant.setLogoFile(Base64.encodeBase64String(logoUpload.getBytes()));
+            } catch (IOException ex) {
+                log.error("Fehler beim Bild speichern");
+            }
+        }
+        
         if (result.hasErrors()) {
             int errorCount = result.getErrorCount();
             String error = result.getAllErrors().get(0).toString();

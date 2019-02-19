@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.URL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,8 +36,11 @@ public class Lieferant {
     private String ort;
     private String plz;
     private String kategorie = "";
+    private String logoPath = "";
+    @Lob
+    private String logoFile;
 
-    public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz, String kategorie) {
+    public Lieferant(String name, String telefon, String webseite, String speisekarte, String ort, String plz, String kategorie, String logoPath, String logoFile) {
         this.name = name;
         this.telefon = telefon;
         this.webseite = webseite;
@@ -44,5 +48,7 @@ public class Lieferant {
         this.ort = ort;
         this.plz = plz;
         this.kategorie = kategorie;
+        this.logoPath = logoPath;
+        this.logoFile = logoFile;
     }
 }

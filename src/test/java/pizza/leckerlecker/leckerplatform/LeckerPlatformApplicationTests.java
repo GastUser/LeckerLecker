@@ -30,7 +30,7 @@ public class LeckerPlatformApplicationTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().string(containsString("Pizza BAlfredo"))
+                        content().string(containsString("Pizza Alfredo"))
                 );
     }
 }
