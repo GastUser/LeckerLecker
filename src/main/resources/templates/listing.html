@@ -24,14 +24,14 @@
                 <table id="lieferanten" class="cell-border stripe hover order-column">
                     <thead>
                         <tr>
-                            <th scope="col">Lieferant</th>
-                            <th scope="col">Logo</th>
-                            <th scope="col">Telefon</th>
+                            <th  scope="col">Lieferant</th>
+                            <th class="keine-sortierung" scope="col">Logo</th>
+                            <th class="keine-sortierung" scope="col">Telefon</th>
+                            <th scope="col">Kategorie</th>
                             <th scope="col">Webseite</th>
                             <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
-                            <th scope="col">Kategorie</th>
-                            <th sec:authorize="hasRole('ADMIN')" scope="col">Aktion</th>
+                            <th class="keine-sortierung" sec:authorize="hasRole('ADMIN')" scope="col">Aktion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +39,9 @@
                         <tr th:if="${suchergebnisse}" th:each="lieferant : ${suchergebnisse}">
                             <td scope="row" th:text="${lieferant.name}">Hallo Pizza</td>
                             <td>
-                                <img th:src="@{'data:image/jpeg;base64,'+${lieferant.logoFile}}" height="60" width="60"/><br/>
+                                <img th:if = "${lieferant.logoFile}" th:src="@{'data:image/jpeg;base64,'+${lieferant.logoFile}}" height="60" width="60"/>
+                                <span th:if="!${lieferant.logoFile}" ><b>KEIN LOGO</b></span>
+                                <br/>
                             </td>
                             <td th:text="${lieferant.telefon}">0341 / 665 88745</td>
                             <td th:text="${lieferant.kategorie}">Kategorie</td>
@@ -93,7 +95,17 @@
 
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#lieferanten').DataTable();
+                $('#lieferanten').DataTable(
+                        { "columnDefs": [{
+                                    "targets": 'keine-sortierung',
+                            "orderable": false, 
+                                    
+                                    
+                        }]        
+                        
+        
+                        }
+                    );
 
             });
             function confirm_click(lieferant){
