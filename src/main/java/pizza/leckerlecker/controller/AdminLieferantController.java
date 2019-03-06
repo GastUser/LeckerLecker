@@ -101,7 +101,7 @@ public class AdminLieferantController {
         Lieferant l = lieferantRepository.save(lieferant);
         //Email senden
         try {
-            sendEmail(lieferant);
+            //sendEmail(lieferant);
         } catch (Exception ex) {
             return "Error in sending email:" + ex;
         }
