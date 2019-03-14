@@ -63,8 +63,8 @@ public class AdminLieferantController {
     @PostMapping("/admin-lieferanten")
     public String speichereLieferant(
             @Valid Lieferant lieferant,
-            @RequestParam("logo") MultipartFile logoUpload,
             BindingResult result,
+            @RequestParam("logo") MultipartFile logoUpload,
             Model model,
             RedirectAttributes redirectAttributes) {
 
@@ -78,9 +78,9 @@ public class AdminLieferantController {
         if (!uv.isValid(lieferant.getWebseite())) {
             result.rejectValue("webseite", "", "Prüfen sie ihre Url - Ungültig!");
         }
-        
+
         //Logo speichern
-        if(!logoUpload.isEmpty()) { 
+        if (!logoUpload.isEmpty()) {
             log.info("Content-Type: " + logoUpload.getContentType());
             try {
                 //String storeFile = fileService.storeFile(logoUpload);
@@ -89,8 +89,15 @@ public class AdminLieferantController {
             } catch (IOException ex) {
                 log.error("Fehler beim Bild speichern");
             }
+        } else {
+            if (lieferant.getId() != null) {
+                Lieferant alterStandLieferantAusDB = lieferantRepository.findOne(lieferant.getId());
+                if (alterStandLieferantAusDB != null) {
+                    lieferant.setLogoFile(alterStandLieferantAusDB.getLogoFile());
+                }
+            }
         }
-        
+
         if (result.hasErrors()) {
             int errorCount = result.getErrorCount();
             String error = result.getAllErrors().get(0).toString();
