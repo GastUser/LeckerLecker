@@ -1,1 +1,1 @@
-INSERT INTO LIEFERANT (ID, NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT, KATEGORIE) VALUES (1, 'Pizza Alfredo1', '0341 445 6674', 'http://pizza-alfredo.de', 'http://pizza-alfredo.de/menue.pdf', '04277', 'Leipzig', 'Pizza,Burger')
+INSERT INTO LIEFERANT ( NAME, TELEFON, WEBSEITE, SPEISEKARTE,PLZ, ORT, KATEGORIE) VALUES ('Pizza Alfredo1', '0341 445 6674', 'http://pizza-alfredo.de', 'http://pizza-alfredo.de/menue.pdf', '04277', 'Leipzig', 'Pizza,Burger')
