@@ -25,8 +25,8 @@ import javax.validation.constraints.Size;
 public class Lieferant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(columnDefinition = "serial")
     private Long id;
     @NotNull
     @Size(min = 2, max = 80)
