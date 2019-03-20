@@ -82,6 +82,18 @@ public class AdminLieferantController {
         //Logo speichern
         if (!logoUpload.isEmpty()) {
             log.info("Content-Type: " + logoUpload.getContentType());
+            log.info("Dateigroesse: " + logoUpload.getSize());
+            result.rejectValue("logoFile", "","Logo ist zu gross (max. 50KB); dein Upload ist:" + logoUpload.getSize()/1024 + "KB");
+            
+            if(logoUpload.getSize()>20000){
+            log.info("zu groß");
+                
+            }else {
+            log.info("passt");
+            
+            }
+            
+            
             try {
                 //String storeFile = fileService.storeFile(logoUpload);
                 lieferant.setLogoPath(logoUpload.getName());

@@ -70,6 +70,7 @@
                     <div class="form-group">
                         <label for="logo">Logo</label>
                         <input type="file" class="form-control" name="logo" id="logo" placeholder="Logo auswählen">
+                        <div class="p-3 mb-2 bg-danger text-white" th:if="${#fields.hasErrors('logoFile')}" th:errors="*{logoFile}">Platzhalter für Fehlertext</div>
                     </div>
 
 
