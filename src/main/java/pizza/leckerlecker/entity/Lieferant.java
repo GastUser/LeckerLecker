@@ -26,7 +26,7 @@ public class Lieferant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "serial")
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @NotNull
     @Size(min = 2, max = 80)
