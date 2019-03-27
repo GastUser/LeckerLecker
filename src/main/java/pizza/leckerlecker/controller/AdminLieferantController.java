@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.mail.internet.ContentType;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class AdminLieferantController {
 
+    private int maxUploadSize = 30000;
     private final Logger log = LoggerFactory.getLogger(AdminLieferantController.class);
 
     @Autowired
@@ -81,19 +83,26 @@ public class AdminLieferantController {
 
         //Logo speichern
         if (!logoUpload.isEmpty()) {
+            String contentType = logoUpload.getContentType();
             log.info("Content-Type: " + logoUpload.getContentType());
             log.info("Dateigroesse: " + logoUpload.getSize());
-            result.rejectValue("logoFile", "","Logo ist zu gross (max. 50KB); dein Upload ist:" + logoUpload.getSize()/1024 + "KB");
-            
-            if(logoUpload.getSize()>20000){
-            log.info("zu groß");
-                
-            }else {
-            log.info("passt");
-            
+
+            if (logoUpload.getSize() > maxUploadSize) {
+                log.info("zu groß");
+                result.rejectValue("logoFile", "", "Logo ist zu gross max " + maxUploadSize / 1024 + "KB; dein Upload ist:" + logoUpload.getSize() / 1024 + "KB");
+            } else {
+                log.info("passt");
+
             }
-            
-            
+
+            if (contentType.equals("image/jpeg")
+                    || contentType.equals("image/png")
+                    || contentType.equals("image/jpg")) {
+            }else{
+            log.info("Falscher Dateityp");
+            result.rejectValue("logoFile","","Nur Bildformate zulässig(jpeg...)");
+            }
+
             try {
                 //String storeFile = fileService.storeFile(logoUpload);
                 lieferant.setLogoPath(logoUpload.getName());
