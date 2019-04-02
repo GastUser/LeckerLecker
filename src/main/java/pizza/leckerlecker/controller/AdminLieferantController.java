@@ -91,7 +91,7 @@ public class AdminLieferantController {
             }
         } else {
             if (lieferant.getId() != null) {
-                Lieferant alterStandLieferantAusDB = lieferantRepository.findOne(lieferant.getId());
+                Lieferant alterStandLieferantAusDB = lieferantRepository.getOne(lieferant.getId());
                 if (alterStandLieferantAusDB != null) {
                     lieferant.setLogoFile(alterStandLieferantAusDB.getLogoFile());
                 }
@@ -123,7 +123,7 @@ public class AdminLieferantController {
             @RequestParam(value = "bid", required = true) Long bearbeiteId,
             Model model
     ) {
-        Lieferant bearbeiteLieferant = lieferantRepository.findOne(bearbeiteId);
+        Lieferant bearbeiteLieferant = lieferantRepository.getOne(bearbeiteId);
 
         model.addAttribute("selectedKat", this.getSelectedKatAsList(bearbeiteLieferant.getKategorie()));
         model.addAttribute("lieferant", bearbeiteLieferant);
@@ -139,9 +139,9 @@ public class AdminLieferantController {
             RedirectAttributes redirectAttributes) {
         log.debug("Lösche Lieferant mit ID : " + loeschId);
 
-        Lieferant lieferantToDelete = lieferantRepository.findOne(loeschId);
+        Lieferant lieferantToDelete = lieferantRepository.getOne(loeschId);
         String nachricht = "Löschen von " + lieferantToDelete.getName() + " erfolgreich!";
-        lieferantRepository.delete(loeschId);
+        lieferantRepository.deleteById(loeschId);
         redirectAttributes.addFlashAttribute("meldung", nachricht);
 
         return "redirect:/listing";

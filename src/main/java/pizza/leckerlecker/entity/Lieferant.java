@@ -1,6 +1,5 @@
 package pizza.leckerlecker.entity;
 
-import javax.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,8 +24,7 @@ import javax.validation.constraints.Size;
 public class Lieferant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     @Size(min = 2, max = 80)

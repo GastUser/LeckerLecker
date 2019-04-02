@@ -60,8 +60,9 @@
                             </td>    
                             
                             <td sec:authorize="hasRole('ADMIN')">
-                                <a th:href="@{'/loeschen?lid=' + ${lieferant.id}}"
-                                   th:onclick="'return confirm_click(\'' + ${lieferant.name} + '\'); '" >
+                                <a th:data1="${lieferant.name}"
+                                   th:href="@{'/loeschen?lid=' + ${lieferant.id}}"
+                                   th:onclick="|return confirm_click(this.getAttribute('data1'));|" >
 
                                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                            
@@ -109,7 +110,7 @@
 
             });
             function confirm_click(lieferant){
-                return confirm("lieferant" + lieferant + "wirklich löschen?");
+                return confirm("Lieferant " + lieferant + " wirklich löschen?");
             }
         </script>
 
