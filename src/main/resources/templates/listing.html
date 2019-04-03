@@ -17,7 +17,6 @@
                 This is a success alert—check it out!
             </div>
 
-
             <div class="row">
                 <h2 th:if="${sucheingabe}">Liste der Suchergebnisse für Eingabe: <span th:text="${sucheingabe}"></span></h2>
 
@@ -35,7 +34,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr th:if="${suchergebnisse}" th:each="lieferant : ${suchergebnisse}">
                             <td scope="row" th:text="${lieferant.name}">Hallo Pizza</td>
                             <td>
@@ -49,44 +47,25 @@
                                 <a th:text="${lieferant.webseite}" th:href="${lieferant.webseite}" target="_blank">text</a>
                             </td>
                             <td scope="row" th:text="${lieferant.ort}">Ort</td>
-
-
                             <td> 
                                 <a th:href="${lieferant.speisekarte}" target="_blank">
                                     <i class="fa fa-cutlery fa-2x" arial-hidden="true"></i>
                                 </a>
-
-
                             </td>    
-                            
                             <td sec:authorize="hasRole('ADMIN')">
-                                <a th:href="@{'/loeschen?lid=' + ${lieferant.id}}"
-                                   th:onclick="'return confirm_click(\'' + ${lieferant.name} + '\'); '" >
-
+                                <a th:data1="${lieferant.name}" 
+                                   th:href="@{'/loeschen?lid=' + ${lieferant.id}}" 
+                                   th:onclick="|return confirm_click(this.getAttribute('data1'));|" >
                                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
-                           
-                                    
-
                                 <a th:href="@{'/bearbeiten?bid=' + ${lieferant.id}}"
-                                  
-                                    <i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+                                   <i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                             </td>
-
-
-
                         </tr>
-
-
                         <tr th:if="${suchergebnisse.empty}">
                             <td colspan="6">Keine Lieferanten gefunden!</td>
                         </tr>
-
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </main>
 
@@ -94,22 +73,21 @@
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 
         <script type="text/javascript">
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $('#lieferanten').DataTable(
-                        { "columnDefs": [{
+                        {"columnDefs": [{
                                     "targets": 'keine-sortierung',
-                            "orderable": false, 
-                                    
-                                    
-                        }]        
-                        
-        
+                                    "orderable": false,
+
+                                }]
+
+
                         }
-                    );
+                );
 
             });
-            function confirm_click(lieferant){
-                return confirm("lieferant" + lieferant + "wirklich löschen?");
+            function confirm_click(lieferant) {
+                return confirm("Lieferant " + lieferant + " wirklich löschen?");
             }
         </script>
 
