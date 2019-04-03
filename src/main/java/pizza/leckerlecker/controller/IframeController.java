@@ -30,17 +30,14 @@ public class IframeController {
      */
     @GetMapping("/iframe")
     public String iframe(
-            @RequestParam(value="ort", required = false, defaultValue ="")String ort,
-         Model model) {
-       
-        
-        
-        
+            @RequestParam(value = "ort", required = false, defaultValue = "") String ort,
+            Model model) {
+
         List<Lieferant> alleLieferanten = lieferantRepository.findByOrtIgnoreCaseContaining(ort);
         model.addAttribute("lieferanten", alleLieferanten);
 
         return "iframe";
-   
+
     }
 
 }

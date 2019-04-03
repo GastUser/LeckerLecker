@@ -27,7 +27,7 @@ public class StartseiteController {
 
     /**
      * Das ist der Endpunkt für die <strong>Startseite</strong>
-     * 
+     *
      * @return Weiterleitung zum Startseiten HTML Template
      */
     @GetMapping("/")
@@ -36,13 +36,14 @@ public class StartseiteController {
     }
 
     /**
-     * Listet alle Lieferante auf
-     * Gefiltert nach PLZ, Ort und Kategorien - sofern angegeben
-     * 
+     * Listet alle Lieferante auf Gefiltert nach PLZ, Ort und Kategorien -
+     * sofern angegeben
+     *
      * @param location - @see java.lang.String
      * @param kategorie - @see java.lang.String
-     * @param model - Rucksack für Daten, die an die UI übergeben werden @see org.springframework.ui.Model
-     * @return 
+     * @param model - Rucksack für Daten, die an die UI übergeben werden @see
+     * org.springframework.ui.Model
+     * @return
      */
     @GetMapping("/listing")
     public String listing(

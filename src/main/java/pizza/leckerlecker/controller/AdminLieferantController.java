@@ -24,7 +24,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.mail.internet.ContentType;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,24 +89,26 @@ public class AdminLieferantController {
             if (logoUpload.getSize() > maxUploadSize) {
                 log.info("zu groß");
                 result.rejectValue("logoFile", "", "Logo ist zu gross max " + maxUploadSize / 1024 + "KB; dein Upload ist:" + logoUpload.getSize() / 1024 + "KB");
-            } else {
+            } 
+            else {
                 log.info("passt");
-
             }
 
             if (contentType.equals("image/jpeg")
                     || contentType.equals("image/png")
                     || contentType.equals("image/jpg")) {
-            }else{
-            log.info("Falscher Dateityp");
-            result.rejectValue("logoFile","","Nur Bildformate zulässig(jpeg...)");
+            } 
+            else {
+                log.info("Falscher Dateityp");
+                result.rejectValue("logoFile", "", "Nur Bildformate zulässig(jpeg...)");
             }
 
             try {
                 //String storeFile = fileService.storeFile(logoUpload);
                 lieferant.setLogoPath(logoUpload.getName());
                 lieferant.setLogoFile(Base64.encodeBase64String(logoUpload.getBytes()));
-            } catch (IOException ex) {
+            } 
+            catch (IOException ex) {
                 log.error("Fehler beim Bild speichern");
             }
         } else {
@@ -130,7 +131,8 @@ public class AdminLieferantController {
         //Email senden
         try {
             //sendEmail(lieferant);
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
             return "Error in sending email:" + ex;
         }
 

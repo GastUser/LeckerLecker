@@ -24,7 +24,7 @@ public class SuchdateiController {
     @RequestMapping(value = "/searchdata", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<String> searchdata() {
-        log.debug("Methode sesrchdata" );
+        log.debug("Methode sesrchdata");
         List<String> ret = new ArrayList<>();
         List<Lieferant> findAll = lieferantRepository.findAll();
 
