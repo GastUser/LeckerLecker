@@ -15,4 +15,6 @@ public interface LieferantRepository extends JpaRepository<Lieferant, Long> {
     List<Lieferant> findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(String suchfeldOrt, String suchfeldPlz);
 
     List<Lieferant> findByOrtIgnoreCaseContaining(String suchort);
+
+    public Lieferant findOne(Long id);
 }
