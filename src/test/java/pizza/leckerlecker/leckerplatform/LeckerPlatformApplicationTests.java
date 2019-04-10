@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("default")
+@ActiveProfiles("develop")
 public class LeckerPlatformApplicationTests {
 
     @Autowired
