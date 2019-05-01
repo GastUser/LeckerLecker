@@ -19,7 +19,9 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication() 
                 .withUser("user").password(encoder.encode("password")).roles("USER") 
                 .and() 
-                .withUser("admin").password(encoder.encode("admin")).roles("ADMIN");
+                .withUser("admin").password(encoder.encode("admin")).roles("ADMIN")
+                 .and() 
+                .withUser("niclas").password(encoder.encode("niclas")).roles("ADMIN");
     }
 
     @Override
@@ -31,6 +33,6 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin-lieferanten").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .httpBasic();
+                .formLogin();
     }
 }

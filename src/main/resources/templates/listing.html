@@ -30,7 +30,9 @@
                             <th scope="col">Webseite</th>
                             <th scope="col">Ort</th>
                             <th scope="col">Speiseplan</th>
+                           
                             <th class="keine-sortierung" sec:authorize="hasRole('ADMIN')" scope="col">Aktion</th>
+                            <th sec:authorize="hasRole ('USER')" scope="col">Favorit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +62,10 @@
                                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                                 <a th:href="@{'/bearbeiten?bid=' + ${lieferant.id}}"
                                    <i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+                            </td>
+                            <td sec:authorize="hasRole ('USER')">
+                                <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                
                             </td>
                         </tr>
                         <tr th:if="${suchergebnisse.empty}">
