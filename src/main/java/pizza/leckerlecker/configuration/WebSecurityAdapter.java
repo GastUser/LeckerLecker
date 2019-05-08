@@ -21,7 +21,7 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
                 .and() 
                 .withUser("admin").password(encoder.encode("admin")).roles("ADMIN")
                  .and() 
-                .withUser("niclas").password(encoder.encode("niclas")).roles("ADMIN");
+                .withUser("niclas").password(encoder.encode("niclas")).roles("USER");
     }
 
     @Override
@@ -33,6 +33,11 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin-lieferanten").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin();
+                .formLogin()
+    .defaultSuccessUrl("/listing")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")
+            ;
     }
 }
