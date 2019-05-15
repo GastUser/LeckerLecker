@@ -1,5 +1,6 @@
 package pizza.leckerlecker.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,16 @@ public class StartseiteController {
     @GetMapping("/")
     public String startseite() {
         return "startseite";
+    }
+
+    @GetMapping("/favorite")
+    public String addFavorite(@RequestParam(value = "lid", required = true) Long lieferantenId,
+            Principal principal
+    ) {
+
+        log.info("Hier das Handling Der Favorites! " + lieferantenId);
+        log.info("Angemeldeter User: " + principal.getName());
+        return "redirect:/listing";
     }
 
     /**
