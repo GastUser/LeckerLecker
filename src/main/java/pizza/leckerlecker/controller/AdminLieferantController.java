@@ -47,11 +47,6 @@ public class AdminLieferantController {
     private String[] kategorien;
 
     private List<String> gewaehlteKategorien = new ArrayList<>();
-
-    @GetMapping("/favorite")
-    public String addFavorite(){
-    return"redirect:/listing";
-    }
     
     @GetMapping("/admin-lieferanten")
     public String AdminLieferant(Model model) {
