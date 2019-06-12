@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pizza.leckerlecker.entity.Favorite;
 import pizza.leckerlecker.entity.Lieferant;
+import pizza.leckerlecker.entity.repository.FavoriteRepository;
 import pizza.leckerlecker.entity.repository.LieferantRepository;
 
 /**
@@ -25,6 +27,9 @@ public class StartseiteController {
 
     @Autowired
     LieferantRepository lieferantRepository;
+
+    @Autowired
+    FavoriteRepository favoriteRepository;
 
     /**
      * Das ist der Endpunkt für die <strong>Startseite</strong>
@@ -40,10 +45,28 @@ public class StartseiteController {
     public String addFavorite(@RequestParam(value = "lid", required = true) Long lieferantenId,
             Principal principal
     ) {
-
+String userId = principal.getName();
+        
         log.info("Hier das Handling Der Favorites! " + lieferantenId);
         log.info("Angemeldeter User: " + principal.getName());
+
+       List<Favorite> favoritVorhanden = favoriteRepository.findByUserIdAndLieferantenId(userId, lieferantenId);
+        
+       
+       
+        Favorite fav = new Favorite();
+       if(null!=favoritVorhanden && favoritVorhanden.size()>0){
+       fav = favoritVorhanden.get(0);
+       log.info("Fav schon vorhanden");
+       }
+       else{
+        fav.setIsAktiv(Boolean.TRUE);
+        fav.setLieferantenId(lieferantenId);
+        fav.setUserId(principal.getName());
+        favoriteRepository.save(fav);
+       }
         return "redirect:/listing";
+
     }
 
     /**
@@ -62,6 +85,10 @@ public class StartseiteController {
             @RequestParam(value = "kategorie", required = false) String kategorie,
             Model model) {
 
+       List<Favorite> favoriten = favoriteRepository.findAll();
+       log.info(favoriten.toString());
+       model.addAttribute("favoriten",favoriten);
+        
         List<Lieferant> listeLieferanten = new ArrayList<>();
 
         log.debug("Eingabe: " + location);

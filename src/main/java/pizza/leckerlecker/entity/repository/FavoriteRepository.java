@@ -5,6 +5,7 @@
  */
 package pizza.leckerlecker.entity.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pizza.leckerlecker.entity.Favorite;
 
@@ -12,6 +13,9 @@ import pizza.leckerlecker.entity.Favorite;
  *
  * @author Chilliger
  */
-public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
-    
+public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
+
+    List<Favorite> findByUserIdAndLieferantenId(String userId, Long lieferantenId);
+
+    List<Favorite> findByUserId(String userId);
 }
