@@ -26,4 +26,5 @@ public class Favorite {
     private Long id;
     private String userId;
     private Boolean isAktiv;
+    private Long lieferantenId;
 }
