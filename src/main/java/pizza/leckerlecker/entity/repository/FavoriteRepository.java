@@ -18,4 +18,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     List<Favorite> findByUserIdAndLieferantenId(String userId, Long lieferantenId);
 
     List<Favorite> findByUserId(String userId);
+
+    List<Favorite> findByUserIdAndIsAktivTrue(String userId);
 }
