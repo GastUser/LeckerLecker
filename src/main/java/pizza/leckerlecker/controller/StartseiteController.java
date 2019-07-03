@@ -22,12 +22,12 @@ import pizza.leckerlecker.entity.repository.LieferantRepository;
  */
 @Controller
 public class StartseiteController {
-    
+
     private final Logger log = LoggerFactory.getLogger(StartseiteController.class);
-    
+
     @Autowired
     LieferantRepository lieferantRepository;
-    
+
     @Autowired
     FavoriteRepository favoriteRepository;
 
@@ -40,24 +40,24 @@ public class StartseiteController {
     public String startseite() {
         return "startseite";
     }
-    
+
     @GetMapping("/favorite")
     public String addFavorite(@RequestParam(value = "lid", required = true) Long lieferantenId,
             Principal principal
     ) {
         String userId = principal.getName();
-        
+
         log.info("Hier das Handling Der Favorites! " + lieferantenId);
         log.info("Angemeldeter User: " + principal.getName());
-        
+
         List<Favorite> favoritVorhanden = favoriteRepository.findByUserIdAndLieferantenId(userId, lieferantenId);
-        
+
         Favorite fav = new Favorite();
         if (null != favoritVorhanden && favoritVorhanden.size() > 0) {
             fav = favoritVorhanden.get(0);
             if (fav.getIsAktiv().equals(Boolean.TRUE)) {
                 fav.setIsAktiv(Boolean.FALSE);
-                
+
             } else {
                 fav.setIsAktiv(Boolean.TRUE);
             }
@@ -66,12 +66,12 @@ public class StartseiteController {
             fav.setIsAktiv(Boolean.TRUE);
             fav.setLieferantenId(lieferantenId);
             fav.setUserId(principal.getName());
-            
+
         }
-        
+
         favoriteRepository.save(fav);
         return "redirect:/listing";
-        
+
     }
 
     /**
@@ -80,6 +80,7 @@ public class StartseiteController {
      *
      * @param location - @see java.lang.String
      * @param kategorie - @see java.lang.String
+     * @param principal
      * @param model - Rucksack für Daten, die an die UI übergeben werden @see
      * org.springframework.ui.Model
      * @return
@@ -90,37 +91,40 @@ public class StartseiteController {
             @RequestParam(value = "kategorie", required = false) String kategorie,
             Principal principal,
             Model model) {
-        
-        List<Favorite> favoriten = favoriteRepository.findByUserIdAndIsAktivTrue(principal.getName());
+        String username = "";
+        if (null != principal) {
+            username = principal.getName();
+        }
+
+        List<Favorite> favoriten = favoriteRepository.findByUserIdAndIsAktivTrue(username);
         List<Long> lieferantenIds = new ArrayList<>();
         for (Favorite favorite : favoriten) {
             lieferantenIds.add(favorite.getLieferantenId());
         }
         log.info(lieferantenIds.toString());
         model.addAttribute("lieferantenIds", lieferantenIds);
-        
-              
+
         List<Lieferant> listeLieferanten = new ArrayList<>();
-        
+
         log.debug("Eingabe: " + location);
         if (null != location && !location.equals("")) {
             String[] split = location.split(" ");
             if (null != split && split.length > 1) {
-                
+
                 String plz = split[0];
                 String ort = split[1];
-                
+
                 List<Lieferant> lieferanten = new ArrayList<>();
                 if (null == ort) {
                     listeLieferanten = lieferantRepository.findByOrtIgnoreCaseContainingOrPlzIgnoreCaseContaining(plz, plz);
                 } else {
                     listeLieferanten = lieferantRepository.findByOrtIgnoreCaseContainingAndPlzIgnoreCaseContaining(ort, plz);
                 }
-                
+
                 if (null != kategorie) {
                     List<Lieferant> temp = new ArrayList<>();
                     List<String> listeDerKategorien = Arrays.asList(kategorie.split("\\s*,\\s*"));
-                    
+
                     for (Lieferant lieferant : listeLieferanten) {
                         for (String kat : listeDerKategorien) {
                             if (lieferant.getKategorie().contains(kat)) {
@@ -131,7 +135,7 @@ public class StartseiteController {
                     }
                     listeLieferanten = temp;
                 }
-                
+
                 model.addAttribute("sucheingabe", location);
             }
         } else {
