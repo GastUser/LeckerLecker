@@ -30,7 +30,8 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <img src="images/logo.png" style="max-width: 100px; height: auto;"/><br/>
-                <a class="btn btn-primary" href="/login">Login</a>
+                <a sec:authorize="isAnonymous()" class="btn btn-primary" href="/login">Login</a>
+                 <a sec:authorize="isAuthenticated()" class="btn btn-primary" href="/logout">Logout</a>
             </div>
         </nav>
 
